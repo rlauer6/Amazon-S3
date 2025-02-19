@@ -640,17 +640,25 @@ sub list_bucket {
 ########################################################################
   my ( $self, $conf ) = @_;
 
-  my $bucket = delete $conf->{bucket};
-
-  croak 'must specify bucket'
-    if !$bucket;
-
   $conf //= {};
+
+  my $bucket;
+  my $region;
+  my $headers;
+
+  if ( eval { return $conf->isa('Amazon::S3::Bucket'); } ) {
+    $bucket = $conf->bucket;
+    $region = $conf->region;
+    $conf = {};
+  }
+  else {
+    $bucket  = delete $conf->{bucket};
+    $region  = delete $conf->{region} || $self->get_bucket_location($bucket);
+    $headers = delete $conf->{headers};
+  }
 
   my $bucket_list; # return this
   my $path = $bucket . $SLASH;
-
-  my $headers = delete $conf->{headers};
 
   my $list_type = $conf->{'list-type'} // '1';
 
@@ -685,7 +693,7 @@ sub list_bucket {
     { method  => 'GET',
       path    => $path,
       headers => $headers // {}, # { 'Content-Length' => 0 },
-      region  => $self->region,
+      region  => $region,
     },
   );
 
@@ -859,17 +867,25 @@ sub list_object_versions {
 ########################################################################
   my ( $self, $conf ) = @_;
 
-  my $bucket = delete $conf->{bucket};
+  $conf //= {};
 
-  die 'no bucket'
-    if !$bucket;
+  my $bucket;
+  my $region;
+  my $headers;
 
-  my $headers = delete $conf->{headers};
+  if ( eval { return $conf->isa('Amazon::S3::Bucket'); } ) {
+    $bucket = $conf->bucket;
+    $region = $conf->region;
+    $conf = {};
+  }
+  else {
+    $bucket  = delete $conf->{bucket};
+    $region  = delete $conf->{region} || $self->get_bucket_location($bucket);
+    $headers = delete $conf->{headers};
+  }
 
   croak 'must specify bucket'
     if !$bucket;
-
-  $conf ||= {};
 
   my ( $marker, $next_marker, $query_next )
     = @{ $LIST_OBJECT_MARKERS{'3'} };
@@ -895,7 +911,7 @@ sub list_object_versions {
     { method  => 'GET',
       path    => $path,
       headers => $headers // {},
-      region  => $self->region,
+      region  => $region,
     },
   );
 
