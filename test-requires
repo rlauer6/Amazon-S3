@@ -1,0 +1,7 @@
+Carp::Always 0.16
+Digest::MD5::File 0.08
+HTTP::Headers 7.04
+HTTP::Response 7.04
+Readonly 2.05
+Test::Output 1.036
+XML::Simple 2.25

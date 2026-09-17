@@ -1,0 +1,13 @@
++LWP::Protocol::https 0
+Class::Accessor::Fast 0.51
+Digest::CRC 0.24
+Digest::HMAC_SHA1 1.05
+Digest::MD5::File 0.08
+HTTP::Date 6.08
+IO::Scalar 2.113
+LWP::UserAgent::Determined 1.07
+Net::Amazon::Signature::V4 0.22
+Readonly 2.05
+URI 5.37
+URI::Escape 5.37
+XML::Simple 2.25

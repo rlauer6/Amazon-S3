@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#-*- mode: sh; -*-
+
+TEST=${1:-}
+
+if [[ -z "$TEST" ]]; then
+  TEST="t/"
+else
+  TEST=$(ls -1 t/$1-* | head -1)
+
+  if [[ -z "$TEST" ]]; then
+      echo "no such test $1"
+      exit 1
+  fi
+fi
+
+LOGFILE=localstack-test.log
+AMAZON_S3_EXPENSIVE_TESTS=1 \
+AMAZON_S3_HOST=s3.localhost.localstack.cloud:4566 \
+AMAZON_S3_LOCALSTACK=1 \
+AWS_ACCESS_KEY_ID=test \
+AWS_ACCESS_SECRET_KEY=test  \
+AMAZON_S3_DOMAIN_BUCKET_NAMES=1 \
+  prove -v -I lib -I local/lib/perl5 $TEST 2>&1 | tee $LOGFILE
+

@@ -1,0 +1,3 @@
+Amazon::S3
+Amazon::S3::BucketV2
+Digest::CRC64NVME
