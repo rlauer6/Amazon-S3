@@ -18,6 +18,10 @@
     ./lib/Amazon/S3/Constants.pm \
     ./lib/Amazon/S3/Util.pm
 
+# ./lib/Amazon/S3/CLI.pm.in
+./lib/Amazon/S3/CLI.pm: \
+    ./lib/Amazon/S3.pm
+
 # ./lib/Amazon/S3/Logger.pm.in
 ./lib/Amazon/S3/Logger.pm: \
     ./lib/Amazon/S3/Constants.pm

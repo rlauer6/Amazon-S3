@@ -26,3 +26,4 @@ resources
 local/**
 bin/run-test
 bin/s3-perl.pl
+bin/amzn-s3-cli

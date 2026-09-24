@@ -1,2 +1,5 @@
+Amazon::Credentials 2.0.0
 Crypt::Blowfish 2.14
 Crypt::CBC 3.07
+File::MimeInfo::Magic 0.37
+Text::ASCIITable 0.22

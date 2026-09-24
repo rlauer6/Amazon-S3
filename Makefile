@@ -262,7 +262,7 @@ test-requires.raw: $(TESTS) provides
 	  --file-list file_list.tmp \
 	  --no-core --filter \
 	  --requires-file $$tmp > /dev/null; \
-	perl -npe 'while(s/  / /g) {}' < $$tmp > test-requires.raw.tmp; \
+	perl -npe 'while(s/  / /g) {}' < $$tmp | sort > test-requires.raw.tmp; \
 	comm -23 test-requires.raw.tmp provides > test-requires.raw; \
 	rm -f file_list.tmp test-requires.raw.tmp
 

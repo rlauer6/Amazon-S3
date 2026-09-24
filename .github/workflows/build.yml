@@ -3,7 +3,7 @@ on:
   push:
     branches: [ master, dev ]
 jobs:
-  Amazon-API:
+  Amazon-S3:
     runs-on: ubuntu-latest
     container:
       image: debian:trixie
